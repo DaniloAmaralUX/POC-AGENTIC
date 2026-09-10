@@ -9,6 +9,37 @@ Use semantic intent rather than strict software semver:
 
 ---
 
+## v1.2 — 2026-09-10
+
+### Problem observed
+The canonical process was agent-readable but did not yet define how an external agent orchestrator should coordinate specialized roles, gates and artifacts without becoming a second competing methodology.
+
+### Evidence
+The AGS Diagnósticos POC was selected as the first real Paperclip experiment. The project needs evidence extraction, requirements engineering, Product/UX Design, front-end implementation and independent review, but these stages must remain governed by the existing `POC-AGENTIC` evidence and gate model.
+
+### Process change
+- Added an optional Paperclip orchestration adapter under `adapters/paperclip/`.
+- Defined the default four-agent topology: Evidence & Requirements Engineer, Product / UX Design Engineer, Front-end Engineer and POC Reviewer / Quality Judge, coordinated by a CEO / POC Lead.
+- Added a reusable company-goal template.
+- Added CEO instructions with authority hierarchy, gate behavior, delegation boundaries, mock/real rules and completion criteria.
+- Added bounded role cards to prevent responsibility overlap and agent scope drift.
+- Added a dependency-aware issue plan from evidence work through final verification.
+- Formalized the rule that orchestration tools coordinate the canonical process but do not override evidence, requirements, gates or human decisions.
+
+### Files affected
+- `README.md`
+- `adapters/paperclip/README.md`
+- `adapters/paperclip/COMPANY-GOAL.md`
+- `adapters/paperclip/CEO-INSTRUCTIONS.md`
+- `adapters/paperclip/ROLE-CARDS.md`
+- `adapters/paperclip/ISSUE-PLAN.md`
+- `CHANGELOG.md`
+
+### Why this is reusable
+Future POCs may use Paperclip or another multi-agent coordinator. Separating orchestration from methodology allows the same evidence-to-design-to-front-end process to survive changes in tooling while still giving agents explicit operating boundaries.
+
+---
+
 ## v1.1 — 2026-09-10
 
 ### Problem observed
