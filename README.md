@@ -65,6 +65,7 @@ The detailed process lives in [`PROCESS.md`](./PROCESS.md).
 - [`templates/DESIGN-SPEC.md`](./templates/DESIGN-SPEC.md) — design workstream contract from IA through interaction/state/accessibility handoff.
 - [`templates/FRONTEND-SPEC.md`](./templates/FRONTEND-SPEC.md) — executable front-end workstream contract, mocks, state/data and verification traceability.
 - [`templates/VALIDATION-PLAN.md`](./templates/VALIDATION-PLAN.md) — usability/research validation plan when representative users are available.
+- [`adapters/paperclip/README.md`](./adapters/paperclip/README.md) — optional Paperclip orchestration adapter.
 - [`CHANGELOG.md`](./CHANGELOG.md) — records reusable changes to the method itself.
 
 ## How an agent should start
@@ -106,6 +107,18 @@ VERIFICATION / FINDINGS / DECISION
 
 The PRD is not allowed to invent requirements. The Design Spec is not allowed to invent product capabilities. The Front-End Spec is not allowed to silently redesign the approved flow.
 
+## Orchestration adapters
+
+The canonical method is orchestrator-agnostic. Tool-specific adapters translate the method into an execution model without changing its evidence rules or gates.
+
+Current adapter:
+
+- **Paperclip** — company goal, CEO instructions, bounded role cards and a dependency-aware issue plan live under [`adapters/paperclip/`](./adapters/paperclip/).
+
+Core rule:
+
+> The orchestrator coordinates the process. It does not become the process.
+
 ## Methodological references
 
 Established requirements engineering, systems engineering and UX methods may support the process. Current references include Nielsen Norman Group material plus requirements/traceability practices documented in the repository.
@@ -114,6 +127,6 @@ External methodology informs the process; it never overrides project evidence.
 
 ## Process version
 
-**v1.1 — 2026-09-10**
+**v1.2 — 2026-09-10**
 
-v1.1 formalizes the missing delivery bridge: a canonical POC PRD plus separate Design Spec and Front-End Spec so product understanding, interface definition and executable implementation remain distinct and traceable.
+v1.2 adds the first orchestration adapter for Paperclip while keeping `POC-AGENTIC` independent from any specific agent platform.
