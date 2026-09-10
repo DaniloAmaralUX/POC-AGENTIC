@@ -4,170 +4,155 @@ These gates prevent downstream work from converting uncertainty into false certa
 
 A gate is not bureaucracy. It is a checkpoint asking whether the next phase would increase learning or merely increase output.
 
-## Gate A — Evidence Ready
-
-Before synthesis.
-
-Must be true:
-- source material has been read;
-- evidence inventory exists;
-- source perspectives are identified;
-- obvious contradictions are recorded;
-- missing source material is visible.
-
-Fail if:
-- the agent is relying on snippets while full material exists;
-- stakeholder statements are already being treated as user truth;
-- the team cannot say what evidence exists.
-
-## Gate B — Problem Ready
-
-Before actors/domain modeling.
+## Gate A — Source Ready
+Before evidence extraction.
 
 Must be true:
-- Facts, Assumptions and Open Questions are separated;
-- the problem can be explained without proposing UI;
-- major unknowns and risks are documented.
+- available source material has been read;
+- source manifest exists;
+- source perspective/type is identified;
+- missing/garbled material is visible;
+- contradictions are not silently resolved.
 
-Fail if:
-- the “problem” is expressed only as a requested feature;
-- assumptions dominate the synthesis but are not marked.
+Fail if the agent is relying on snippets while full material exists or cannot say what evidence is available.
 
-## Gate C — Primary Actor Ready
-
-Before future-state and POC scoping.
+## Gate B — Evidence Ready
+Before synthesis/modeling.
 
 Must be true:
-- primary actor is explicit;
-- primary job/task is explicit;
+- important claims have source IDs/locators where possible;
+- Facts, Inferences, Assumptions and Open Questions are separated;
+- stakeholder statement is not conflated with user truth;
+- major risks created by uncertainty are visible.
+
+Fail if interpretation is hidden inside polished prose.
+
+## Gate C — Problem Ready
+Before domain/future-state work.
+
+Must be true:
+- problem can be explained without UI;
+- primary actor is explicit and evidence level known;
 - stakeholder and user are not conflated;
-- evidence level behind the actor definition is known.
+- the critical job/task is explicit or clearly marked provisional.
 
-Fail if:
-- persona is invented from demographics;
-- multiple incompatible users are being designed for simultaneously without prioritization.
+Fail if a feature request is being used as the whole problem definition.
 
 ## Gate D — Domain Ready
-
-Before IA.
+Before requirements baseline/IA.
 
 Must be true:
-- core entities exist as a model;
-- relationships are explicit;
-- optional vs. required relationships are identified where relevant;
+- glossary/core entities exist;
+- events/states and relationships are explicit where relevant;
+- optional vs required relationships are distinguished;
 - external-system boundaries are visible;
-- sensitive data/identity assumptions are marked.
+- sensitive-data assumptions are marked.
+
+Fail if navigation labels are standing in for domain understanding.
+
+## Gate E — Evidence Challenge Ready
+Before requirements are accepted.
+
+Must be true:
+- unresolved high-risk assumptions are listed;
+- available technical/regulatory/reference evidence has been inspected where relevant;
+- direct research availability is stated;
+- if no client/user access exists, the project explicitly adopts evidence-constrained mode.
+
+Fail if secondary research is being described as direct user validation.
+
+## Gate F — Requirements Grounding Ready
+Before POC scope/design.
+
+Must be true for every accepted P0 requirement:
+- source/claim or valid derivation exists;
+- origin is explicit/derived/provisional;
+- one obligation only;
+- rationale exists;
+- assumption dependencies are visible;
+- fit criterion is observable;
+- verification method exists;
+- contradictions are resolved or explicitly carried as risk.
 
 Fail if:
-- navigation labels are being used as the domain model;
-- a page structure is forcing the data model prematurely.
+- generic SaaS behavior became a requirement without evidence;
+- competitor feature became a requirement;
+- citation does not actually support the statement;
+- technical capability was invented;
+- vague terms have no measurable/observable meaning.
 
-## Gate E — POC Scope Ready
-
+## Gate G — POC Scope Ready
 Before detailed design.
 
 Must be true:
-- primary hypothesis is explicit;
-- learning goal is explicit;
-- critical scenario is explicit;
-- in-scope and out-of-scope lists exist;
-- success evidence is defined;
-- mocked vs. real behavior is declared.
+- primary hypothesis and learning goal are explicit;
+- critical scenario exists;
+- in/out scope exists;
+- requirements included in the slice are known;
+- mocked vs real behavior is declared;
+- the POC states what it cannot validate.
 
-Fail if:
-- scope is just “build a portal/dashboard”;
-- every stakeholder request is included;
-- success means only “looks polished”.
+Fail if scope is merely “build a portal/dashboard” or success means only polish.
 
-## Gate F — Flow Ready
-
-Before high-fidelity prototype or coded POC.
+## Gate H — Flow Ready
+Before high-fidelity/coded work.
 
 Must be true:
-- current-state friction is understood;
+- current-state friction is understood or labeled source-derived;
 - future-state hypothesis exists;
-- IA supports known tasks/domain concepts;
+- IA supports accepted tasks/domain concepts;
 - 1–3 critical task flows exist;
+- flows reference relevant requirements;
 - important exception/error states are known or explicitly deferred.
 
-Fail if:
-- screens exist without task completion logic;
-- generic SaaS IA was used without evidence.
+Fail if screens exist without task-completion logic.
 
-## Gate G — Prototype Ready
-
-Before usability testing.
-
-Must be true:
-- participant can understand the scenario;
-- realistic data/content exists;
-- critical tasks are actually interactive;
-- facilitator does not need to explain how the UI works;
-- known mocks do not misrepresent product capability.
-
-Fail if:
-- prototype is only a visual walkthrough;
-- task completion depends on hidden facilitator instructions.
-
-## Gate H — Front-End Ready
-
-Before claiming the POC is executable/testable.
+## Gate I — Prototype / Front-End Ready
+Before evaluation.
 
 Must be true:
 - critical flow works end to end;
-- mocked integrations are identified;
-- realistic loading/empty/error states exist where relevant;
+- realistic content/data exists;
+- mocked integrations are visible;
+- no static data is misrepresented as real-time;
 - basic keyboard/accessibility behavior works;
-- target viewport/context works;
-- implementation does not contradict the approved flow.
+- implementation does not contradict the accepted flow.
 
-Fail if:
-- UI suggests data is real-time when it is static without disclosure;
-- implementation shortcuts materially change the test hypothesis.
+Fail if the POC is only a visual walkthrough or implementation shortcuts change the tested hypothesis.
 
-## Gate I — Validation Ready
-
-Before running sessions.
+## Gate J — Evaluation Ready
+Before claiming results.
 
 Must be true:
-- research questions are explicit;
-- representative tasks are written;
-- participant profile is defined;
-- success/failure observations are defined;
-- moderator script exists where needed;
-- capture method is defined.
+- evaluation question is explicit;
+- verification methods are linked to requirements;
+- direct user validation status is explicit;
+- if users are unavailable, inspection/review methods are named;
+- findings distinguish evidence from interpretation.
 
-Fail if:
-- research consists primarily of “Do you like this?”;
-- there is no relationship between task and POC hypothesis.
+Fail if expert review is called user validation or aesthetic approval is treated as proof of usefulness.
 
-## Gate J — Decision Ready
-
-After validation.
+## Gate K — Decision Ready
+After evaluation.
 
 Must be true:
-- findings distinguish observation from interpretation;
-- severity/impact is justified;
-- hypothesis outcome is stated;
+- verified requirements are distinguishable from unverified ones;
+- validation status is explicit;
+- findings are evidence-linked;
 - remaining unknowns are visible;
-- next decision is explicit: proceed, iterate, pivot or stop.
+- next decision is Proceed / Iterate / Pivot / Stop.
 
-Fail if:
-- design changes are made without connecting them to evidence;
-- positive stakeholder reaction is used as a substitute for user validation.
+Fail if claims about product-market/user fit exceed available evidence.
 
-## Gate K — Process Learning Ready
-
-Before changing this repository's canonical process.
+## Gate L — Process Learning Ready
+Before changing the canonical process.
 
 Must be true:
-- a real POC exposed a recurring process failure or improvement;
-- the proposed change is likely reusable across future POCs;
+- a real POC exposed a recurring process failure/improvement;
+- proposed change is reusable across future POCs;
 - evidence/example is recorded;
-- affected documentation/templates are identified.
+- affected templates/agent rules/evals are identified.
 
-Fail if:
-- change exists only because one project had a special case;
-- the method is being changed based on preference alone.
+Fail if the change is project-specific or preference-driven.
 
-When Gate K passes, update `PROCESS.md`, affected templates and `CHANGELOG.md`.
+When Gate L passes, update `PROCESS.md`, affected supporting docs/templates, relevant eval cases and `CHANGELOG.md`.
