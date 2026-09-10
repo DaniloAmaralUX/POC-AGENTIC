@@ -1,6 +1,6 @@
 # Canonical POC Process
 
-**Process version:** v0.1  
+**Process version:** v1.0  
 **Status:** living standard  
 **Last updated:** 2026-09-10
 
@@ -8,170 +8,250 @@ This file is the canonical method. If the POC process evolves, update this file 
 
 ## Purpose
 
-Transform incomplete, ambiguous or stakeholder-led input into the smallest credible product experience that can be tested with users and stakeholders.
+Transform incomplete, ambiguous or stakeholder-led material into the smallest credible product experience that can be designed, built and inspected without converting uncertainty into fake certainty.
 
-The process is optimized for agentic work: every stage produces explicit artifacts, evidence status and an exit gate so another agent can resume without reconstructing hidden reasoning.
+This process is optimized for a common operating constraint: the POC team may receive only PDFs, transcripts, briefs, screenshots, existing-system material and technical documentation, with **no direct access to the client or end user**.
+
+The process therefore distinguishes:
+
+- evidence extraction;
+- requirements engineering;
+- product/design hypothesis;
+- verification;
+- real user validation.
+
+A POC may be strong without direct user access. It must not claim to be user-validated when that access did not exist.
 
 ---
 
-## Phase 0 — Intake and Evidence Inventory
+# Core model
+
+```text
+SOURCE
+  ↓
+CLAIM
+  ↓
+FACT / INFERENCE / ASSUMPTION / QUESTION
+  ↓
+DOMAIN + OPERATIONAL MODEL
+  ↓
+REQUIREMENT
+  ↓
+POC HYPOTHESIS
+  ↓
+IA + TASK FLOW
+  ↓
+PROTOTYPE / FRONT-END
+  ↓
+VERIFICATION / INSPECTION
+  ↓
+LEARNING
+  ↓
+PROCESS UPDATE
+```
+
+Supporting specification: `EVIDENCE-TO-REQUIREMENTS.md`.
+
+---
+
+## Phase 0 — Intake and Source Manifest
 
 ### Goal
 Understand what material actually exists before interpreting it.
 
 ### Inputs
 Examples:
-- stakeholder interviews;
-- meeting transcripts;
-- briefs;
+- stakeholder meetings/transcripts;
+- briefs and requirement lists;
 - screenshots;
 - existing systems;
 - technical documentation;
-- analytics;
+- analytics/support material when provided;
 - regulations;
 - competitor/reference material;
-- user interviews.
+- user research, if available.
 
 ### Agent actions
-1. Read all source material.
-2. Record each source in an evidence inventory.
-3. Separate source-derived statements from inference.
-4. Note source quality and perspective: stakeholder, user, technical, quantitative, legal, etc.
-5. Do not resolve contradictions silently.
+1. Read the complete available corpus.
+2. Assign a stable ID to every source.
+3. Record source type, perspective, date/version and limitations.
+4. Distinguish project evidence from external research.
+5. Record missing/garbled sections.
+6. Do not resolve contradictions silently.
 
 ### Output
-Research Board: Evidence section.
+Source Manifest + Evidence Inventory.
 
 ### Exit gate
-There is enough material to state what is known, what is assumed and what is unknown.
+The team can say what evidence exists, where it came from and what perspective it represents.
 
 ---
 
-## Phase 1 — Research Synthesis
+## Phase 1 — Atomic Evidence Extraction
 
 ### Goal
-Convert raw material into an explicit understanding of the problem space.
+Extract claims before generating requirements or features.
 
-### Required structure
+Each important claim receives:
+- claim ID;
+- normalized statement;
+- source ID;
+- exact locator/citation when possible;
+- source perspective;
+- epistemic status;
+- confidence/limitations.
 
-#### Facts
-Directly supported by evidence.
+### Status model
 
-#### Assumptions
-Plausible interpretations that are not yet validated.
+- **FACT** — directly supported by evidence, limited to what that evidence actually proves.
+- **INFERENCE** — interpretation derived from one or more facts.
+- **ASSUMPTION** — plausible but insufficiently supported.
+- **OPEN QUESTION** — materially unknown.
+- **DECISION** — explicit choice made by the POC team.
 
-#### Open Questions
-Unknowns that can materially affect product, UX, business or technical decisions.
+### Critical rule
+> A stakeholder saying that users need something is a fact about the stakeholder statement; it is not automatically a fact about user behavior or need.
 
-#### Risks
-Consequences of being wrong.
+### Output
+Research Board + Claim Ledger.
+
+### Exit gate
+No high-impact downstream statement needs to rely on hidden reasoning.
+
+---
+
+## Phase 2 — CSD / Research Synthesis
+
+### Goal
+Create a shared epistemic map of the project.
+
+Translate the evidence into:
+
+```text
+CERTAINTIES  → evidence-backed facts
+SUPPOSITIONS → inferences / assumptions
+DOUBTS       → open questions
+```
+
+Track risks created by unresolved suppositions/doubts.
 
 ### Rule
 > No assumption may become a fact because it appears repeatedly in agent-generated documents.
 
 ### Output
-`RESEARCH-BOARD.md`
+`RESEARCH-BOARD.md`.
 
 ### Exit gate
-The team can explain the product problem without describing screens.
+The problem can be explained without proposing screens.
 
 ---
 
-## Phase 2 — Actors and Stakeholders
+## Phase 3 — Actors and Stakeholders
 
 ### Goal
-Understand who participates in the system and who actually uses the proposed experience.
+Understand who participates in the system and whose work the POC is attempting to support.
 
-### Distinguish
-- stakeholder;
-- primary user;
-- secondary user;
+Distinguish:
+- client/stakeholder;
+- primary functional actor;
+- secondary actor;
 - operator;
 - administrator;
 - support/implementation actor;
-- external system or organization.
+- external organization/system.
 
-Do not invent personas with demographics unless supported by research. Prefer functional actors until real user evidence exists.
+### No-client rule
+When direct user evidence is unavailable, prefer **functional actors** to fictional personas.
+
+Do not invent demographics, motivations, emotions or quotes.
 
 ### Output
-Actor map + stakeholder map.
+Actor Map + Stakeholder Map.
 
 ### Exit gate
-There is a defensible primary actor for the POC.
+There is a defensible primary actor for the POC and the evidence level behind that choice is explicit.
 
 ---
 
-## Phase 3 — Domain Model
+## Phase 4 — Domain + Operational Model
 
 ### Goal
-Understand the system as objects and relationships before turning it into navigation.
+Understand the system as concepts, relationships, events and work before turning it into navigation.
 
-### Identify
-- core entities;
+Identify:
+- glossary/terminology;
+- entities;
 - relationships;
-- optional vs. required relationships;
-- lifecycle/state;
+- events;
+- states/lifecycles;
+- business rules;
 - ownership;
 - data sources;
 - external IDs;
 - sensitive data;
-- boundaries with external systems.
+- external systems/interfaces;
+- optional vs required relationships.
 
-### Questions
+Useful questions:
 - What exists independently?
 - What produces events?
-- What belongs to what?
-- What can exist without another entity?
 - What changes state?
-- Which relationships are assumptions?
+- What belongs to what?
+- Which actor performs which task?
+- Which data is optional?
+- Which behavior is only inferred?
 
 ### Output
-Domain Model v0.x.
+Domain Model v0.x + glossary.
 
 ### Exit gate
-The team can model the core scenario without page names.
+The core scenario can be modeled without page names.
 
 ---
 
-## Phase 4 — Current-State Journey
+## Phase 5 — Current-State / Concept of Operations
 
 ### Goal
-Understand how the user achieves the relevant outcome today.
+Reconstruct how the relevant outcome is achieved today and how the surrounding operation works.
 
-### Capture
+Capture:
 - trigger;
+- actor;
+- goal;
+- preconditions;
 - actions;
 - systems/touchpoints;
+- information exchanged;
+- decisions;
 - delays;
 - handoffs;
 - workarounds;
-- pain/friction;
+- exceptions;
 - consequence;
-- evidence supporting each important claim.
+- source evidence.
 
-### Rule
-Current-state journey describes what exists, not the proposed solution.
+If current behavior is not actually observed, label the map **source-derived** or **hypothetical**, not user-validated.
 
 ### Output
-Current-state journey map.
+Current-State Journey / Operational Scenario.
 
 ### Exit gate
-The primary friction can be stated as a user/workflow problem rather than a feature request.
+The primary friction is stated as a workflow/problem condition, not merely a requested feature.
 
 ---
 
-## Phase 5 — Service Blueprint
+## Phase 6 — Service Blueprint (Conditional)
 
-Use when the experience depends on multiple channels, devices, teams, integrations or backstage processes.
+Use when the POC depends on multiple devices, channels, teams, integrations or backstage processes.
 
 ### Layers
-1. User/customer actions.
+1. Actor/customer actions.
 2. Frontstage touchpoints.
 3. Backstage systems/processes.
 4. Support processes/dependencies.
 
 ### Purpose
-Prevent interface design from hiding integration, operational or organizational problems.
+Prevent UI from hiding integration, operational or organizational problems.
 
 ### Output
 Service Blueprint v0.x.
@@ -181,68 +261,86 @@ Critical backstage dependencies and failure points are visible.
 
 ---
 
-## Phase 6 — Research Validation
+## Phase 7 — Evidence Challenge and Triangulation
 
 ### Goal
-Challenge stakeholder-derived assumptions with direct user or operational evidence.
+Reduce uncertainty before requirements become design commitments.
 
-### Preferred sequence for an early POC
-1. Primary user interview.
-2. Operator/secondary user interview where relevant.
-3. Technical/implementation interview where system behavior matters.
+There are two modes.
 
-### Interview principle
-Ask about real past behavior before hypothetical future preference.
+### Mode A — Direct research available
+Use interviews, contextual research, usability testing, analytics/support data or other appropriate methods.
 
-Prefer:
-> “Tell me about the last time you had to investigate this.”
-
-Over:
-> “Would you use a dashboard for this?”
-
-### Output
-Updated Research Board + evidence-backed changes.
-
-### Exit gate
-The primary user, job and critical friction are credible enough to scope a POC.
-
----
-
-## Phase 7 — Future-State Hypothesis
-
-### Goal
-Describe the smallest improved journey worth testing.
-
-This is explicitly a hypothesis, not a requirement list.
-
-### Structure
-- trigger;
-- user intent;
-- expected system response;
-- decision points;
-- exception paths;
-- desired outcome;
-- assumptions still unresolved.
+### Mode B — Evidence-constrained POC (default when no client/user access)
+Use only the strongest available substitutes:
+- official technical documentation;
+- regulations/standards;
+- provided analytics/support material;
+- secondary/domain research;
+- competitor/reference analysis;
+- technical feasibility review;
+- expert review;
+- heuristic evaluation;
+- cognitive/task walkthrough;
+- scenario inspection.
 
 ### Rule
-Do not add features merely because they are typical in SaaS/admin products.
+These activities can **triangulate, verify, challenge or reduce uncertainty**. They do not become direct user validation.
 
 ### Output
-Future-state journey v0.x.
+Updated Research Board with evidence status and unresolved-risk list.
 
 ### Exit gate
-The journey can be tested as a coherent end-to-end scenario.
+The team knows which uncertainties can be safely carried into the POC and which would invalidate the vertical slice.
 
 ---
 
-## Phase 8 — POC Definition
+## Phase 8 — Requirements Engineering
 
 ### Goal
-Choose the smallest vertical slice that tests the most important hypothesis.
+Transform accepted evidence into traceable, atomic and verifiable requirements.
+
+Use:
+- `EVIDENCE-TO-REQUIREMENTS.md`;
+- `templates/REQUIREMENTS-LEDGER.md`;
+- `EVALS.md`.
+
+Classify every candidate as:
+- **EXPLICIT REQUIREMENT**;
+- **DERIVED REQUIREMENT**;
+- **PROVISIONAL REQUIREMENT**;
+- **DESIGN HYPOTHESIS**;
+- **REFERENCE PATTERN**.
+
+### Requirement baseline rule
+Every accepted P0 requirement must:
+- trace to a source/claim or explicit derivation;
+- contain one obligation;
+- use project terminology;
+- have rationale;
+- expose assumption dependencies;
+- define an observable fit criterion;
+- define a verification method.
+
+### Traceability chain
+
+```text
+SOURCE → CLAIM → REQUIREMENT → DECISION → FLOW/UI → TEST
+```
+
+### Exit gate
+A skeptic agent cannot find an unsupported P0 requirement masquerading as fact.
+
+---
+
+## Phase 9 — POC Definition
+
+### Goal
+Choose the smallest vertical slice that tests the most important product/design/technical uncertainty.
 
 Use `templates/POC-BRIEF.md`.
 
-### Define
+Define:
 - problem statement;
 - primary actor;
 - hypothesis;
@@ -251,196 +349,250 @@ Use `templates/POC-BRIEF.md`.
 - in scope;
 - out of scope;
 - success evidence;
-- constraints;
-- known fake/stubbed data;
-- what must be real.
+- known mocks/stubs;
+- what must be real;
+- requirements included in the slice;
+- unresolved assumptions carried into the slice.
 
 ### POC rule
 > Scope is determined by the question the POC must answer.
 
-Not by:
-- completeness;
-- stakeholder wishlists;
-- generic SaaS conventions;
-- number of available development days.
+Not by generic SaaS completeness or stakeholder wishlist size.
 
 ### Exit gate
-A reviewer can explain what the POC proves if it succeeds and what is learned if it fails.
+A reviewer can explain what the POC proves, what it does not prove and what would be learned if it fails.
 
 ---
 
-## Phase 9 — Information Architecture
+## Phase 10 — Future-State Hypothesis
 
 ### Goal
-Organize information around user tasks and domain relationships.
+Describe the smallest improved end-to-end journey worth exploring.
 
-### Inputs
-- validated actors;
-- domain model;
-- critical journeys;
-- POC scope.
+This is explicitly a hypothesis until evidence supports it.
 
-### Avoid
-Starting with generic navigation such as:
-`Dashboard / Users / Reports / Settings`
-unless research actually supports those concepts.
-
-### Output
-IA v0.x with rationale.
-
-### Exit gate
-Every top-level area supports a known task or domain concept.
-
----
-
-## Phase 10 — Critical Task Flows
-
-### Goal
-Define how the primary user completes the POC scenarios.
-
-Each task flow should state:
-- entry condition;
-- user goal;
+Structure:
+- trigger;
+- actor intent;
+- system response;
+- information needed;
 - decisions;
-- success path;
-- important error/empty/loading states;
-- completion condition.
+- exceptions;
+- desired outcome;
+- linked requirements;
+- unresolved assumptions.
 
-Prioritize 1–3 critical flows for a POC.
+### Rule
+Do not add features because they are common in SaaS/admin products.
 
 ### Output
-Task flows.
+Future-State Journey v0.x.
 
 ### Exit gate
-The POC can be tested as tasks, not merely browsed as screens.
+The journey is coherent and traceable to the POC learning goal.
 
 ---
 
-## Phase 11 — Prototype
+## Phase 11 — Information Architecture
 
 ### Goal
-Create the minimum interface fidelity needed to test the hypothesis.
+Organize information around tasks, domain concepts and accepted requirements.
 
-### Design principles
-- content and data should look realistic;
-- critical states must exist;
-- avoid polishing parts outside the hypothesis;
-- preserve uncertainty in annotations;
-- use a system/component foundation where possible;
-- design desktop/mobile only when relevant to the tested context.
+Avoid generic navigation such as `Dashboard / Users / Reports / Settings` unless evidence or an explicit design hypothesis justifies it.
 
 ### Output
-Testable prototype or coded interaction slice.
+IA v0.x with rationale and upstream references.
 
 ### Exit gate
-A participant can attempt the critical tasks without facilitator explanation of the UI.
+Every top-level area supports a known task/domain concept or explicitly labeled hypothesis.
 
 ---
 
-## Phase 12 — Front-End POC
+## Phase 12 — Critical Task Flows
 
 ### Goal
-Turn the validated interaction model into a credible executable vertical slice.
+Define 1–3 flows that exercise the POC hypothesis.
 
-Front-end is part of product validation, not a separate handoff artifact.
+Each flow states:
+- entry condition;
+- actor goal;
+- required information;
+- decisions;
+- happy path;
+- meaningful empty/loading/error/exception states;
+- completion condition;
+- requirement IDs exercised.
 
-### Requirements
-- preserve the tested user flow;
+### Output
+Task Flows.
+
+### Exit gate
+The POC can be evaluated as tasks, not merely browsed as screens.
+
+---
+
+## Phase 13 — Prototype
+
+### Goal
+Create the minimum interface fidelity required to inspect/test the hypothesis.
+
+Principles:
+- realistic content/data;
+- critical states included;
+- no polish outside the hypothesis without reason;
+- uncertainty remains annotated;
+- use a component/system foundation where possible;
+- target viewport reflects supplied evidence or is labeled a design assumption.
+
+### Output
+Testable prototype.
+
+### Exit gate
+A reviewer can execute the critical flows without hidden explanation.
+
+---
+
+## Phase 14 — Front-End POC
+
+### Goal
+Turn the interaction model into a credible executable vertical slice.
+
+Front-end is part of validation/verification work, not merely handoff.
+
+Requirements:
+- preserve accepted task flows;
 - use realistic states/data;
-- explicitly mark mocked integrations;
-- no fake claims of real-time/backend behavior;
-- keyboard and basic accessibility must work;
-- responsive behavior must match target context;
-- reusable components should emerge from repeated need, not premature abstraction.
+- mark mocks clearly;
+- never fake real-time/backend capability;
+- basic keyboard/accessibility works;
+- implementation does not silently change product decisions;
+- code outside the POC learning goal remains proportional.
 
-### Agent rule
-Before coding, read:
+Before coding, agents must read:
 1. Research Board;
-2. POC Brief;
-3. task flows;
-4. design decisions;
-5. technical constraints.
+2. Requirements Ledger;
+3. POC Brief;
+4. Domain Model;
+5. critical flows;
+6. technical constraints.
 
 ### Exit gate
-The vertical slice is stable enough for representative usability testing.
+The vertical slice is stable enough for inspection or representative testing if access later becomes available.
 
 ---
 
-## Phase 13 — Usability / Concept Validation
+## Phase 15 — Verification and Evaluation
 
 ### Goal
-Test the proposed experience against representative tasks.
+Determine what the POC actually demonstrates.
 
-Do not primarily ask:
-> “Do you like it?”
+### Verification
+Ask: **Did we build the specified POC correctly?**
 
-Ask participants to perform scenarios.
+Methods may include:
+- test;
+- demonstration;
+- inspection;
+- analysis;
+- accessibility review;
+- technical checks;
+- requirement traceability review.
 
-### Observe
-- task success;
-- wrong turns;
-- hesitation;
-- terminology problems;
-- missing information;
-- unexpected mental models;
-- false confidence;
-- workarounds;
-- what they expect to happen next.
+### Validation
+Ask: **Is this the right product/experience for the intended user and context?**
 
-Use `templates/VALIDATION-PLAN.md`.
+If representative users are unavailable, this remains **not user-validated**.
+
+### Evidence-constrained evaluation
+Use:
+- scenario walkthrough;
+- cognitive/task walkthrough;
+- heuristic inspection;
+- multi-reviewer design review;
+- technical/domain review;
+- competitive/reference comparison;
+- requirements verification matrix.
 
 ### Output
-Findings ranked by impact and evidence.
+Findings + Verification Matrix + explicit validation status.
 
 ### Exit gate
-There is enough evidence to decide: iterate, expand, pivot or stop.
+No claim about the POC exceeds the evidence produced by the evaluation.
 
 ---
 
-## Phase 14 — Synthesis and Decision
+## Phase 16 — Decision
 
-### Decision options
-- **Proceed** — hypothesis supported strongly enough for next scope.
-- **Iterate** — core hypothesis remains plausible but experience needs correction.
-- **Pivot** — evidence changes user/problem/solution direction.
-- **Stop** — hypothesis not valuable or feasible enough to continue.
+Options:
+- **Proceed** — evidence supports expanding the next slice.
+- **Iterate** — core direction remains plausible but needs correction.
+- **Pivot** — evidence changes the problem/model/solution direction.
+- **Stop** — not valuable or feasible enough.
 
 Record:
 - what was learned;
+- what was verified;
+- what remains unvalidated;
 - what changed;
 - what remains unknown;
-- what should be tested next;
-- which artifacts are now obsolete.
+- next recommendation;
+- obsolete/superseded artifacts.
 
 ---
 
-## Phase 15 — Compound the Learning
+## Phase 17 — Compound the Learning
 
-A POC should leave the next POC easier to execute.
+A POC should make the next POC easier and more reliable.
 
-After each project:
-1. identify reusable research patterns;
-2. identify reusable templates/components/scripts;
-3. document mistakes and corrections;
-4. distinguish project-specific knowledge from process knowledge;
-5. update this repository only when the process itself improved.
-
-### Governance rule
-If a process change is supported by actual project learning:
+After each real project:
+1. identify reusable failures/successes in extraction;
+2. identify repeated agent hallucination patterns;
+3. add useful examples to `EVALS.md`/eval cases;
+4. improve templates/gates only when reusable;
+5. distinguish project knowledge from process knowledge;
+6. update `CHANGELOG.md`.
 
 ```text
-OBSERVATION
-  ↓
-PROPOSED PROCESS CHANGE
-  ↓
-UPDATE PROCESS.md / templates
-  ↓
-UPDATE AGENTS.md if agent behavior changes
-  ↓
-ADD CHANGELOG ENTRY
+REAL POC FAILURE / LEARNING
+       ↓
+IS IT REUSABLE?
+   ├── NO → project artifact only
+   └── YES
+        ↓
+PROCESS / TEMPLATE / AGENT RULE
+        ↓
+EVAL CASE
+        ↓
+FUTURE REGRESSION CHECK
 ```
 
-Do not update the canonical method just because one project had a special case.
+---
+
+# Recommended agent architecture
+
+Default to an orchestrated workflow, not an autonomous swarm:
+
+```text
+Corpus Analyst
+   ↓
+Evidence Extractor
+   ↓
+Domain Modeler
+   ↓
+Requirements Engineer
+   ↓
+Skeptic / Red Team
+   ↓
+Reviser
+   ↓
+Quality Judge
+   ↓
+UX / Product Modeler
+   ↓
+Builder
+```
+
+Use parallel source analysis only when the corpus is large. Truth is determined by evidence, not agent vote.
 
 ---
 
@@ -449,25 +601,32 @@ Do not update the canonical method just because one project had a special case.
 ```text
 projects/<project>/
   README.md
+  SOURCE-MANIFEST.md
   RESEARCH-BOARD.md
+  REQUIREMENTS-LEDGER.md
   POC-BRIEF.md
   DOMAIN-MODEL.md
   CURRENT-JOURNEY.md
-  SERVICE-BLUEPRINT.md        # when needed
+  SERVICE-BLUEPRINT.md        # conditional
   FUTURE-JOURNEY.md
   IA.md
   TASK-FLOWS.md
-  VALIDATION-PLAN.md
+  VERIFICATION-MATRIX.md
   FINDINGS.md
   DECISION.md
 ```
 
-The project may use fewer files if the same information remains explicit and agent-readable.
+The project may use fewer files if the same information remains explicit, traceable and agent-readable.
 
-# Methodological support
+# Methodological foundations
 
-Use established UX methods as supporting process references. A starting reference library is Nielsen Norman Group reports and research material:
+The process draws selectively from established disciplines rather than copying one framework wholesale:
 
-https://www.nngroup.com/reports/
+- Requirements Engineering: ISO/IEC/IEEE 29148.
+- Requirements quality, V&V and traceability: NASA Systems Engineering guidance / INCOSE principles.
+- Atomic requirements, rationale, fit criteria and work-vs-product scope: Volere.
+- Requirements lifecycle/traceability: IREB.
+- UX discovery, CSD, task analysis, journey mapping, service blueprinting and inspection methods: Nielsen Norman Group.
+- Agent orchestration and evaluator/optimizer patterns: current agent-engineering guidance from leading model providers.
 
-External methodology does not override observed project evidence.
+External methodology supports process quality. It never overrides project evidence.
