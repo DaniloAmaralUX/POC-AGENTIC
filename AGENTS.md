@@ -8,11 +8,27 @@ Before acting:
 
 1. Read `README.md`.
 2. Read `PROCESS.md`.
-3. Read `GATES.md`.
-4. Locate the target project folder.
-5. Read its `RESEARCH-BOARD.md` and `POC-BRIEF.md` before proposing IA, UI or code.
+3. Read `EVIDENCE-TO-REQUIREMENTS.md`.
+4. Read `EVALS.md`.
+5. Read `GATES.md`.
+6. Locate the target project folder.
+7. Read its source manifest, research board, requirements ledger and POC brief before proposing IA, UI or code.
 
-If those artifacts do not exist, create the missing synthesis before continuing downstream.
+If required upstream artifacts do not exist, create the missing synthesis before continuing downstream.
+
+---
+
+## Default operating constraint
+
+Assume that direct client/end-user access may not exist.
+
+When that is true:
+- do not fabricate interviews, quotes, personas or observed behavior;
+- do not call stakeholder-derived beliefs user facts;
+- do not call desk research or expert inspection user validation;
+- explicitly label what is source-grounded, inferred, provisional, technically verified, expert-reviewed or not user-validated.
+
+A polished POC is not evidence of user validity.
 
 ---
 
@@ -20,167 +36,213 @@ If those artifacts do not exist, create the missing synthesis before continuing 
 
 Every important statement must be classified as one of:
 
-- **FACT** — directly supported by source evidence.
-- **ASSUMPTION** — plausible but unvalidated.
+- **FACT** — directly supported by source evidence, limited to what the source actually proves.
+- **INFERENCE** — interpretation derived from one or more facts.
+- **ASSUMPTION** — plausible but not sufficiently supported.
 - **OPEN QUESTION** — materially unknown.
 - **DECISION** — an explicit product/design/technical choice.
-- **INFERENCE** — interpretation derived from one or more facts.
+
+Every candidate requirement must additionally be classified as:
+
+- **EXPLICIT**;
+- **DERIVED**;
+- **PROVISIONAL**;
+- **DESIGN HYPOTHESIS**;
+- **REFERENCE PATTERN**.
 
 ### Never do this
 
-- convert stakeholder opinion into user fact;
-- fill an unknown with a generic SaaS pattern;
-- cite an agent-generated document as evidence for a claim that originated as an assumption;
-- silently resolve contradictory source material;
-- invent technical capabilities because the UI would benefit from them;
-- describe mocked behavior as real integration.
+- stakeholder opinion → user fact;
+- competitor feature → requirement;
+- common SaaS pattern → requirement;
+- agent inference → technical fact;
+- repeated assumption → certainty;
+- source mention → unsupported stronger claim;
+- mocked behavior → real capability.
 
 ---
 
-## Agent behavior by phase
+## Required provenance chain
 
-### Research / discovery
+For important P0 scope, preserve:
+
+```text
+SOURCE → CLAIM → REQUIREMENT → DECISION → FLOW/UI → VERIFICATION
+```
+
+A citation alone is insufficient if the source does not entail the downstream statement.
+
+---
+
+## Agent workflow
+
+Default sequence:
+
+```text
+Corpus Analyst
+  ↓
+Evidence Extractor
+  ↓
+Domain Modeler
+  ↓
+Requirements Engineer
+  ↓
+Skeptic / Red Team
+  ↓
+Reviser
+  ↓
+Quality Judge
+  ↓
+UX / Product Modeler
+  ↓
+Builder
+```
+
+Do not collapse extraction, interpretation, criticism and final synthesis into one unchecked pass when the corpus is ambiguous.
+
+### Corpus Analyst
+Read the full available corpus, create source IDs and expose missing/contradictory material.
+
+### Evidence Extractor
+Extract atomic claims with locators. Do not propose UI.
+
+### Domain Modeler
+Extract vocabulary, actors, entities, events, states, business rules, data and external-system boundaries.
+
+### Requirements Engineer
+Transform evidence into atomic requirements using `templates/REQUIREMENTS-LEDGER.md`.
+
+### Skeptic / Red Team
+Try to disprove requirements. Look for hallucination, source overreach, contradictions, solution creep, hidden assumptions and invented capabilities.
+
+### Reviser
+Make the smallest correction or downgrade the epistemic status.
+
+### Quality Judge
+Run `EVALS.md` and `GATES.md`. Evidence, not agent consensus, determines truth status.
+
+### UX / Product Modeler
+Only after requirements quality gates, derive POC scope, future-state hypotheses, IA and critical task flows.
+
+### Builder
+Implement the accepted vertical slice without silently changing upstream product decisions.
+
+---
+
+## Parallelism
+
+Parallelize reading when the corpus is large. Do not parallelize truth by majority vote.
+
+Multiple agents may independently inspect a high-risk section, but disagreement must be resolved against source evidence or left unresolved.
+
+---
+
+## External research
+
+External sources may:
+- explain domain terminology;
+- identify standards/regulations;
+- challenge assumptions;
+- provide competitor/reference patterns;
+- support technical feasibility review;
+- provide established UX/process guidance.
+
+They must not silently overwrite the project corpus.
+
+Classify external material as authoritative constraint, domain reference, competitive reference, design pattern or process reference.
+
+---
+
+## Product / UX rules
 
 Do:
-- read complete source material;
-- preserve terminology from sources;
-- separate fact from inference;
-- record uncertainty;
-- expose contradictions;
-- ask only questions that materially affect the POC.
-
-Do not:
-- jump to wireframes;
-- create personas with fictional demographics;
-- infer business rules from common product conventions.
-
-### Modeling
-
-Do:
-- model actors, entities, relationships and states;
-- mark optional/required relationships;
-- connect every critical concept to evidence or mark it as hypothesis.
-
-Do not:
-- make navigation the domain model;
-- assume one page per entity.
-
-### Product / UX design
-
-Do:
-- design around the critical task;
-- use the smallest future-state journey that tests the hypothesis;
-- document why each major IA area exists;
-- include empty/loading/error/exception states when they affect the tested journey.
+- design around critical tasks and source-grounded domain concepts;
+- keep future-state work explicitly hypothetical where evidence is weak;
+- include meaningful empty/loading/error/exception states;
+- preserve uncertainty in annotations;
+- separate functional actor from invented persona.
 
 Do not:
 - default to `Dashboard / Users / Reports / Settings`;
 - add features merely to make the POC look complete;
-- polish secondary surfaces while critical uncertainty remains unresolved.
+- infer emotions/motivations without evidence;
+- use external patterns as proof of user need.
 
-### Front-end
+---
+
+## Front-end rules
 
 Do:
-- preserve the approved task flow;
-- use realistic content and data;
+- preserve approved task flows;
+- use realistic content/data;
 - mark stubs/mocks clearly;
 - maintain basic accessibility and keyboard operation;
-- keep abstractions proportional to actual reuse.
+- keep abstractions proportional to real reuse;
+- preserve requirement IDs where practical in implementation/test notes.
 
 Do not:
-- rewrite the product flow because implementation is easier;
 - fabricate backend states;
-- over-engineer infrastructure outside the POC learning goal.
+- fake real-time behavior;
+- rewrite product logic because implementation is easier;
+- over-engineer outside the learning goal.
 
-### Validation
+---
 
-Do:
-- test tasks and scenarios;
-- record observed behavior;
-- distinguish participant quote/behavior from interpretation;
-- rank findings by impact on the hypothesis and task.
+## Verification vs validation
 
-Do not:
-- use aesthetic preference as the primary success metric;
-- ask only whether participants “liked” the POC;
-- convert one participant opinion into a universal rule.
+Verification asks whether the POC satisfies its specified requirements.
+
+Validation asks whether it is the right product/experience for intended users/context.
+
+If representative users were not involved, the agent must explicitly state **not user-validated**.
+
+Permitted evidence-constrained evaluation includes scenario walkthrough, cognitive/task walkthrough, heuristic inspection, design review, technical review and requirements traceability review.
 
 ---
 
 ## Gate discipline
 
-An agent may not advance a POC simply because downstream work is possible.
-
 Before moving phases, check `GATES.md`.
 
 If a gate fails:
 - state why;
-- identify the minimum missing evidence or decision;
-- stop or continue only with the affected part explicitly labeled as provisional.
+- identify the smallest missing evidence/decision;
+- stop the affected path or continue only as explicitly provisional.
 
 ---
 
 ## Updating the canonical process
 
-The repository is a living standard.
+Update the process only when a real POC exposes a reusable process failure/improvement.
 
-Update `PROCESS.md` only when learning from a real POC indicates the generic process itself should change.
+When changing it:
+1. record the observed failure;
+2. define the reusable rule;
+3. update `PROCESS.md` and affected templates;
+4. update this contract if agent behavior changes;
+5. add/adjust an eval case where useful;
+6. update `CHANGELOG.md`.
 
-When changing the process:
+Ask:
+> Would this improve multiple future POCs, or is it project-specific?
 
-1. explain the observed problem;
-2. explain the new rule/process;
-3. update affected templates;
-4. update this file if agent behavior changes;
-5. add an entry to `CHANGELOG.md`;
-6. preserve project-specific exceptions inside the project, not the global method.
-
-### Change test
-
-Before modifying the process, ask:
-
-> “Would this improve how we run multiple future POCs, or is it only true for this project?”
-
-Only the first case belongs in the canonical process.
+Only the first belongs in the canonical method.
 
 ---
 
-## File writing conventions
+## Handoff standard
 
-Prefer Markdown.
+Another agent should be able to recover without hidden reasoning:
+- what sources exist;
+- what each source can and cannot prove;
+- what is fact/inference/assumption/question;
+- what the domain model is;
+- what requirements are explicit/derived/provisional;
+- what the POC hypothesis is;
+- what is in/out of scope;
+- what is mocked vs real;
+- what is verified vs unvalidated;
+- which gate is current;
+- what should happen next.
 
-For decision-sensitive sections, use explicit status labels:
-
-```text
-[F] FACT
-[A] ASSUMPTION
-[Q] OPEN QUESTION
-[D] DECISION
-[I] INFERENCE
-```
-
-When possible, include source references next to facts.
-
-Use dates and versions on major project artifacts.
-
-Do not delete obsolete decisions silently. Mark them superseded or preserve them in history when they explain current direction.
-
----
-
-## Definition of a good agent handoff
-
-Another agent should be able to answer, without asking the previous agent:
-
-- What problem are we trying to understand?
-- Who is the primary actor?
-- What evidence do we have?
-- What is still assumed?
-- What is unknown?
-- What is the POC hypothesis?
-- What is in and out of scope?
-- What are the critical journeys?
-- What is mocked vs. real?
-- What stage/gate are we in?
-- What should happen next?
-
-If these answers are not recoverable from the repository, the handoff is incomplete.
+If those answers are not recoverable from the repository, the handoff is incomplete.
