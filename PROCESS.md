@@ -1,6 +1,6 @@
 # Canonical POC Process
 
-**Process version:** v1.0  
+**Process version:** v1.1  
 **Status:** living standard  
 **Last updated:** 2026-09-10
 
@@ -17,6 +17,8 @@ The process therefore distinguishes:
 - evidence extraction;
 - requirements engineering;
 - product/design hypothesis;
+- design delivery;
+- front-end implementation;
 - verification;
 - real user validation.
 
@@ -39,9 +41,15 @@ REQUIREMENT
   ↓
 POC HYPOTHESIS
   ↓
+POC PRD
+  ↓
 IA + TASK FLOW
   ↓
-PROTOTYPE / FRONT-END
+DESIGN SPEC
+  ↓
+FRONT-END SPEC
+  ↓
+EXECUTABLE POC
   ↓
 VERIFICATION / INSPECTION
   ↓
@@ -102,7 +110,6 @@ Each important claim receives:
 - confidence/limitations.
 
 ### Status model
-
 - **FACT** — directly supported by evidence, limited to what that evidence actually proves.
 - **INFERENCE** — interpretation derived from one or more facts.
 - **ASSUMPTION** — plausible but insufficiently supported.
@@ -191,15 +198,6 @@ Identify:
 - sensitive data;
 - external systems/interfaces;
 - optional vs required relationships.
-
-Useful questions:
-- What exists independently?
-- What produces events?
-- What changes state?
-- What belongs to what?
-- Which actor performs which task?
-- Which data is optional?
-- Which behavior is only inferred?
 
 ### Output
 Domain Model v0.x + glossary.
@@ -333,25 +331,33 @@ A skeptic agent cannot find an unsupported P0 requirement masquerading as fact.
 
 ---
 
-## Phase 9 — POC Definition
+## Phase 9 — POC Definition + PRD Baseline
 
 ### Goal
-Choose the smallest vertical slice that tests the most important product/design/technical uncertainty.
+Choose the smallest vertical slice and convert the accepted understanding into a delivery contract for design and front-end.
 
-Use `templates/POC-BRIEF.md`.
+Use:
+- `templates/POC-BRIEF.md` for hypothesis/scope;
+- `templates/PRD.md` for the canonical delivery baseline.
+
+The PRD does not replace the Research Board or Requirements Ledger. It references and summarizes them.
 
 Define:
 - problem statement;
+- evidence basis;
 - primary actor;
 - hypothesis;
-- learning goal;
+- learning/demonstration goal;
 - scenario;
 - in scope;
 - out of scope;
-- success evidence;
-- known mocks/stubs;
-- what must be real;
-- requirements included in the slice;
+- requirements baseline;
+- domain boundary;
+- critical journeys;
+- real vs mocked behavior;
+- acceptance criteria;
+- design delivery contract;
+- front-end delivery contract;
 - unresolved assumptions carried into the slice.
 
 ### POC rule
@@ -359,8 +365,11 @@ Define:
 
 Not by generic SaaS completeness or stakeholder wishlist size.
 
+### Output
+`POC-BRIEF.md` + `POC-PRD.md`.
+
 ### Exit gate
-A reviewer can explain what the POC proves, what it does not prove and what would be learned if it fails.
+A reviewer can explain what must be designed, what must be implemented, what is mocked, what the POC demonstrates and what it does not prove.
 
 ---
 
@@ -431,10 +440,24 @@ The POC can be evaluated as tasks, not merely browsed as screens.
 
 ---
 
-## Phase 13 — Prototype
+## Phase 13 — Product / UX Design
 
 ### Goal
-Create the minimum interface fidelity required to inspect/test the hypothesis.
+Translate the PRD, requirements and critical task flows into a coherent testable interaction model.
+
+Use `templates/DESIGN-SPEC.md`.
+
+Design must define:
+- IA/navigation behavior;
+- screen/surface inventory;
+- interaction model;
+- state matrix;
+- content/terminology;
+- component/pattern decisions;
+- responsive strategy;
+- accessibility behavior;
+- real vs mocked disclosure;
+- traceable design decisions.
 
 Principles:
 - realistic content/data;
@@ -445,39 +468,59 @@ Principles:
 - target viewport reflects supplied evidence or is labeled a design assumption.
 
 ### Output
-Testable prototype.
+`DESIGN-SPEC.md` + testable prototype/design source.
 
 ### Exit gate
-A reviewer can execute the critical flows without hidden explanation.
+A reviewer can execute the critical flows without hidden explanation and the implementation team can reproduce the intended interaction without inventing missing behavior.
 
 ---
 
 ## Phase 14 — Front-End POC
 
 ### Goal
-Turn the interaction model into a credible executable vertical slice.
+Turn the approved interaction model into a credible executable vertical slice.
 
-Front-end is part of validation/verification work, not merely handoff.
+Use `templates/FRONTEND-SPEC.md`.
 
-Requirements:
+Front-end is part of POC verification, not merely a visual handoff.
+
+Define and implement:
+- route/surface contract;
+- data/fixture contract;
+- state contract;
+- interaction contract;
+- component contract;
+- responsive behavior;
+- accessibility baseline;
+- real vs mocked implementation;
+- requirement traceability;
+- smoke/testing strategy;
+- visual QA;
+- run/deployment instructions.
+
+Rules:
 - preserve accepted task flows;
-- use realistic states/data;
+- use realistic deterministic states/data;
 - mark mocks clearly;
 - never fake real-time/backend capability;
 - basic keyboard/accessibility works;
-- implementation does not silently change product decisions;
+- implementation does not silently change product/design decisions;
 - code outside the POC learning goal remains proportional.
 
 Before coding, agents must read:
 1. Research Board;
 2. Requirements Ledger;
-3. POC Brief;
+3. POC PRD;
 4. Domain Model;
-5. critical flows;
-6. technical constraints.
+5. Task Flows;
+6. Design Spec;
+7. technical constraints.
+
+### Output
+`FRONTEND-SPEC.md` + executable POC.
 
 ### Exit gate
-The vertical slice is stable enough for inspection or representative testing if access later becomes available.
+The vertical slice is stable, traceable and ready for inspection or representative testing if access later becomes available.
 
 ---
 
@@ -496,7 +539,8 @@ Methods may include:
 - analysis;
 - accessibility review;
 - technical checks;
-- requirement traceability review.
+- requirement traceability review;
+- visual/design QA.
 
 ### Validation
 Ask: **Is this the right product/experience for the intended user and context?**
@@ -589,7 +633,11 @@ Quality Judge
    ↓
 UX / Product Modeler
    ↓
+Design Reviewer
+   ↓
 Builder
+   ↓
+Implementation Reviewer
 ```
 
 Use parallel source analysis only when the corpus is large. Truth is determined by evidence, not agent vote.
@@ -605,18 +653,49 @@ projects/<project>/
   RESEARCH-BOARD.md
   REQUIREMENTS-LEDGER.md
   POC-BRIEF.md
+  POC-PRD.md
   DOMAIN-MODEL.md
   CURRENT-JOURNEY.md
   SERVICE-BLUEPRINT.md        # conditional
   FUTURE-JOURNEY.md
   IA.md
   TASK-FLOWS.md
+  DESIGN-SPEC.md
+  FRONTEND-SPEC.md
   VERIFICATION-MATRIX.md
   FINDINGS.md
   DECISION.md
 ```
 
 The project may use fewer files if the same information remains explicit, traceable and agent-readable.
+
+---
+
+# Design → Front-End traceability
+
+```text
+SOURCE / CLAIM
+      ↓
+REQUIREMENT
+      ↓
+PRD
+      ↓
+JOURNEY / TASK FLOW
+      ↓
+DESIGN DECISION
+      ↓
+UI SURFACE / STATE
+      ↓
+FRONT-END ROUTE / COMPONENT / FIXTURE
+      ↓
+VERIFICATION
+```
+
+A design surface with no upstream rationale is orphaned design.
+A P0 requirement with no UI/non-UI coverage is an unimplemented requirement.
+A front-end behavior that changes the approved flow without a recorded decision is implementation drift.
+
+---
 
 # Methodological foundations
 
