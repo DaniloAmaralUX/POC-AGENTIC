@@ -9,6 +9,42 @@ Use semantic intent rather than strict software semver:
 
 ---
 
+## v1.1 — 2026-09-10
+
+### Problem observed
+The process already described design and front-end phases, but there was no canonical artifact making the handoff between evidence/requirements, interface design and executable implementation explicit.
+
+That leaves room for three recurring agent failures:
+- the PRD becoming an untraceable feature wishlist;
+- design inventing product/backend behavior not established upstream;
+- front-end silently changing the approved interaction model because implementation convenience differs from the design.
+
+### Evidence
+While preparing AGS Diagnósticos for a real design + front-end delivery, the repository had Research Board, Requirements Ledger, POC Brief and Validation Plan templates, but no canonical POC PRD, Design Spec or Front-End Spec.
+
+### Process change
+- Added `templates/PRD.md` as the delivery contract that summarizes evidence, baseline requirements, POC scope, journeys, real-vs-mocked behavior, acceptance criteria and downstream delivery expectations.
+- Added `templates/DESIGN-SPEC.md` for IA, surfaces, state matrix, interaction rules, content, accessibility, responsive behavior, design decisions and handoff.
+- Added `templates/FRONTEND-SPEC.md` for route, data, fixture, state, interaction, component, accessibility, responsive, deployment and verification contracts.
+- Updated the canonical chain to `Evidence → Requirements → PRD → Design Spec → Front-End Spec → Executable POC → Verification`.
+- Added explicit design-to-front-end traceability and implementation-drift rules.
+- Updated `AGENTS.md` so agents read different required artifacts depending on the phase.
+- Updated README and minimum artifact set.
+
+### Files affected
+- `PROCESS.md`
+- `AGENTS.md`
+- `README.md`
+- `templates/PRD.md`
+- `templates/DESIGN-SPEC.md`
+- `templates/FRONTEND-SPEC.md`
+- `CHANGELOG.md`
+
+### Why this is reusable
+Every future POC delivered as both design and executable front-end needs a stable boundary between what the product must demonstrate, how the interaction is intended to work and how the implementation realizes it. The split prevents upstream uncertainty from being hidden in UI or code and makes handoffs recoverable by any agent.
+
+---
+
 ## v1.0 — 2026-09-10
 
 ### Problem observed
