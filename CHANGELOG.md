@@ -9,6 +9,52 @@ Use semantic intent rather than strict software semver:
 
 ---
 
+## v1.0 — 2026-09-10
+
+### Problem observed
+The real operating model for these POCs does not guarantee direct access to clients or end users. The team may receive only requirement lists, PDFs, transcripts, screenshots and technical/reference material, then must convert that corpus into a credible design/front-end POC.
+
+The v0.1 process assumed direct research validation as a normal intermediate phase. That created a mismatch between the canonical method and the actual delivery constraint.
+
+### Evidence
+AGS Diagnósticos exposed the issue: a rich stakeholder transcript was enough to reconstruct business intent, equipment/integration context and candidate workflows, but not enough to claim observed user needs or behavior.
+
+### Process change
+- Adopted **evidence-constrained POC mode** as a first-class operating path.
+- Added explicit Source → Claim → Requirement → Decision → Flow/UI → Verification traceability.
+- Added atomic claim extraction before requirements generation.
+- Incorporated CSD logic for Certainties / Suppositions / Doubts.
+- Added requirements origin taxonomy: Explicit / Derived / Provisional / Design Hypothesis / Reference Pattern.
+- Added an atomic Requirements Ledger with rationale, source, assumption dependencies, fit criterion and verification method.
+- Replaced mandatory direct-user research with an Evidence Challenge phase supporting two modes: direct research when available; triangulation/inspection when unavailable.
+- Made verification vs validation explicit. A POC without representative-user contact must be labeled **not user-validated**.
+- Added controlled agent workflow: Corpus Analyst → Evidence Extractor → Domain Modeler → Requirements Engineer → Skeptic → Reviser → Quality Judge → UX/Product Modeler → Builder.
+- Added red-team/evaluator loop to prevent unsupported requirements and solution creep.
+- Added `EVALS.md` so real extraction failures become regression cases for the process.
+- Expanded gates to include Source Ready, Evidence Challenge, Requirements Grounding and Evaluation status.
+
+### Files affected
+- `PROCESS.md`
+- `AGENTS.md`
+- `GATES.md`
+- `EVIDENCE-TO-REQUIREMENTS.md`
+- `EVALS.md`
+- `templates/REQUIREMENTS-LEDGER.md`
+- `CHANGELOG.md`
+
+### Methodological foundations added
+- ISO/IEC/IEEE 29148 — requirements engineering lifecycle/process foundation.
+- Volere — atomic requirements, rationale, fit criteria, facts/assumptions and work-vs-product scope.
+- NASA/INCOSE systems engineering guidance — traceability, verification and validation concepts.
+- IREB — requirements lifecycle and traceability concepts.
+- Nielsen Norman Group — discovery, CSD matrix, task analysis, mapping and usability inspection methods.
+- Agent-engineering guidance — sequential workflows, specialized roles, critic/reviser/evaluator patterns and eval-driven improvement.
+
+### Why this is reusable
+Any POC produced from incomplete or second-hand material faces the same epistemic risk: agents can produce plausible requirements that the source never established. The new pipeline makes provenance, uncertainty and verification part of the standard rather than project-specific cleanup.
+
+---
+
 ## v0.1 — 2026-09-10
 
 ### Added
